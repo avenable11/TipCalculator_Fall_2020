@@ -8,6 +8,7 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.TextView;
 
 import java.text.DecimalFormat;
@@ -27,6 +28,7 @@ public class TipCalculatorActivity extends AppCompatActivity {
     private float tipPercent = .15f;
     private String billAmountString;
     private SharedPreferences savedValues;
+    private Spinner splitSpinner;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +51,8 @@ public class TipCalculatorActivity extends AppCompatActivity {
                 return false;
             }
         });
+
+
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
     }
 
@@ -95,16 +99,8 @@ public class TipCalculatorActivity extends AppCompatActivity {
         percentEditText.setText(percent.format(tipPercent));
     }
 
-    public void changePercent(View v) {
+   public void changePercent(View v) {
         switch(v.getId()) {
-            case R.id.percentDownButton:
-                tipPercent = tipPercent - 0.01f;
-                calculateAndDisplay();
-                break;
-            case R.id.percentUpButton:
-                tipPercent = tipPercent + 0.01f;
-                calculateAndDisplay();
-                break;
             case R.id.calculateButton:
                 calculateAndDisplay();
                 break;

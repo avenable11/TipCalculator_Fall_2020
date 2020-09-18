@@ -2,7 +2,7 @@
     <string name="app_name">TipCalculator Fall 2020</string>
     <string name="bill_amount">Bill Amount</string>
     <string name="currency_symbol">$ </string>
-    <string name="default_precent">15</string>
+    <string name="default_percent">15</string>
     <string name="percent">Percent</string>
     <string name="percent_symbol">" %"</string>
     <string name="plus_symbol">+</string>
@@ -11,4 +11,15 @@
     <string name="tip">Tip</string>
     <string name="total">Total</string>
     <string name="calculate">Calculate</string>
+    <string name="round_no">No Rounding</string>
+    <string name="round_tip">Round Tip</string>
+    <string name="round_total">Round Total</string>
+    <string name="split_bill_hint">Split the Bill?</string>
+    <string-array name="split_array">
+        <item>No</item>
+        <item>2 ways</item>
+        <item>3 ways</item>
+        <item>4 ways</item>
+        <item>5 ways</item>
+    </string-array>
 </resources>
