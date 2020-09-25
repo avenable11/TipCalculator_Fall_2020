@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".TipCalculatorActivity">
@@ -60,7 +61,7 @@
         </com.google.android.material.textfield.TextInputLayout>
 
         <SeekBar
-            android:id="@+id/seekBar"
+            android:id="@+id/tipSeekBar"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -129,7 +130,7 @@
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/splitSpinner"
-        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"
@@ -141,12 +142,14 @@
         app:layout_constraintTop_toBottomOf="@+id/tip">
 
 
-        <Spinner
-            android:id="@+id/spinner2"
+        <AutoCompleteTextView
+            android:id="@+id/splitBill"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:entries="@array/split_array" />
+            android:enabled="false"
+            android:inputType="none"
+            android:textColor="@android:color/tertiary_text_light" />
     </com.google.android.material.textfield.TextInputLayout>
 
     <com.google.android.material.textfield.TextInputLayout
@@ -180,6 +183,41 @@
         android:layout_marginEnd="8dp"
         android:onClick="changePercent"
         android:text="@string/calculate"
+        app:layout_constraintEnd_toStartOf="@+id/clearButton"
+        app:layout_constraintTop_toBottomOf="@+id/eachPays" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/eachPays"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:hint="@string/each_pays_hint"
+        android:visibility="gone"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/total" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/total"
+        app:prefixText="@string/currency_symbol">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/eachPaysEditText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:enabled="false"
+            android:inputType="numberDecimal"
+            android:textColor="@android:color/tertiary_text_light" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/clearButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        android:layout_marginEnd="8dp"
+        android:onClick="changePercent"
+        android:text="@string/clear"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/eachPays" />
 </androidx.constraintlayout.widget.ConstraintLayout>

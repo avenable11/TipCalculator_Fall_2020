@@ -3,4 +3,23 @@
     <color name="colorPrimary">#199f12</color>
     <color name="colorPrimaryDark">#005e00</color>
     <color name="colorAccent">#98129f</color>
+
+    <color name="color_primary">#199f12</color>
+    <color name="color_primary_variant">#005e00</color>
+    <color name="colorPrimaryVariant">#005e00</color>
+    <color name="color_secondary">#98129f</color>
+    <color name="color_secondary_variant">#cc4fd1</color>
+
+
+    <color name="color_background">#ffffff</color>
+    <color name="color_surface">#ffffff</color>
+    <color name="color_error">#ff8a80</color>
+
+    <color name="color_on_primary">#000000</color>
+    <color name="color_on_secondary">#ffffff</color>
+    <color name="color_on_background">#000000</color>
+    <color name="color_on_surface">#000000</color>
+    <color name="color_on_error">#000000</color>
+
+
 </resources>
