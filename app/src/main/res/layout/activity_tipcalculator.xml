@@ -71,7 +71,7 @@
 
     </LinearLayout>
 
-    <RadioGroup
+    <!--RadioGroup
         android:id="@+id/roundingRadioGroup"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/round_total" />
-    </RadioGroup>
+    </RadioGroup-->
 
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tip"
@@ -116,7 +116,7 @@
         android:hint="@string/tip"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/roundingRadioGroup"
+        app:layout_constraintTop_toBottomOf="@id/percentLayout"
         app:prefixText="@string/currency_symbol">
 
         <com.google.android.material.textfield.TextInputEditText

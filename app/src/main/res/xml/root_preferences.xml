@@ -1,0 +1,16 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+    <SwitchPreference
+        android:defaultValue="false"
+        android:key="@string/remember_key"
+        android:summaryOff="@string/remember_summary_off"
+        android:summaryOn="@string/remember_summary_on"
+        android:title="@string/remember_pref" />
+    <ListPreference
+        android:defaultValue="@string/rounding_default"
+        android:entries="@array/rounding_title_array"
+        android:entryValues="@array/rounding_values"
+        android:key="@string/rounding_key"
+        android:summary="@string/rounding_summary"
+        android:title="@string/rounding_pref" />
+</PreferenceScreen>

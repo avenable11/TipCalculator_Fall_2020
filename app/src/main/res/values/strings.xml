@@ -17,11 +17,49 @@
     <string name="split_bill_hint">Split the Bill?</string>
     <string name="each_pays_hint">Each Pays</string>
     <string name="clear">Clear</string>
+    <string name="about">This is a tip calculator</string>
+    <string name="about_menu">About</string>
     <string-array name="split_array">
         <item>No</item>
         <item>2 ways</item>
         <item>3 ways</item>
         <item>4 ways</item>
         <item>5 ways</item>
+    </string-array>
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+    <string name="settings_menu">Settings</string>
+    <string name="remember_key">remember</string>
+    <string name="remember_pref">Remember Entered Values</string>
+    <string name="remember_summary_on">Remember entered values when app closes.</string>
+    <string name="remember_summary_off">Reset values to default amounts when app is closed and relaunched.</string>
+    <string name="rounding_pref">Rounding?</string>
+    <string name="rounding_key">rounding</string>
+    <string name="rounding_summary">Sets the rounding option for the calculation.</string>
+    <string name="rounding_default">0</string>
+
+    <string-array name="rounding_title_array">
+        <item>No Rounding</item>
+        <item>Round Tip </item>
+        <item>Round Total</item>
+    </string-array>
+    <string-array name="rounding_values">
+        <item>0</item>
+        <item>1</item>
+        <item>2</item>
     </string-array>
 </resources>

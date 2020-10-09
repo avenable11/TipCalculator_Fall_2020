@@ -1,10 +1,16 @@
 package edu.ivytech.tipcalculatorfall2020;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.preference.PreferenceManager;
 
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.KeyEvent;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
@@ -15,7 +21,9 @@ import android.widget.RadioGroup;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.textfield.TextInputLayout;
 
 import java.text.DecimalFormat;
@@ -26,7 +34,7 @@ import static android.content.SharedPreferences.*;
 import static android.widget.TextView.*;
 
 
-public class TipCalculatorActivity extends AppCompatActivity implements RadioGroup.OnCheckedChangeListener {
+public class TipCalculatorActivity extends AppCompatActivity { //implements RadioGroup.OnCheckedChangeListener {
 
     private final int ROUND_NONE = 0;
     private final int ROUND_TIP = 1;
@@ -39,11 +47,13 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
     private float tipPercent = .15f;
     private String billAmountString;
     private SharedPreferences savedValues;
+    private SharedPreferences prefs;
     private AutoCompleteTextView splitSpinner;
     private String[] s;
     private ArrayAdapter<String> adapter;
     private int rounding = ROUND_NONE;
-    private RadioGroup roundingRadioGroup;
+    private boolean remember;
+    //private RadioGroup roundingRadioGroup;
     private int split = 1;
     private EditText eachPaysEditText;
     private TextInputLayout eachPays;
@@ -85,9 +95,9 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
 
         savedValues = getSharedPreferences("SavedValues", MODE_PRIVATE);
         eachPays = findViewById(R.id.eachPays);
-        roundingRadioGroup = findViewById(R.id.roundingRadioGroup);
-        roundingRadioGroup.setOnCheckedChangeListener(this);
-        roundingRadioGroup.check(R.id.noRoundingRadioButton);
+       // roundingRadioGroup = findViewById(R.id.roundingRadioGroup);
+       // roundingRadioGroup.setOnCheckedChangeListener(this);
+       // roundingRadioGroup.check(R.id.noRoundingRadioButton);
         //eachPays = findViewById(R.id.eachPays);
         eachPaysEditText = findViewById(R.id.eachPaysEditText);
         tipSeekBar = findViewById(R.id.tipSeekBar);
@@ -109,6 +119,8 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
                 calculateAndDisplay();
             }
         });
+        PreferenceManager.setDefaultValues(this, R.xml.root_preferences, false);
+        prefs = PreferenceManager.getDefaultSharedPreferences(this);
     }
 
     @Override
@@ -125,25 +137,61 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
     @Override
     protected void onResume() {
         super.onResume();
-        billAmountString = savedValues.getString("billAmountString","");
-        tipPercent = savedValues.getFloat("tipPercent", 0.15f);
-        billAmountEditText.setText(billAmountString);
+        remember = prefs.getBoolean(getResources().getString(R.string.remember_key),false);
+        rounding = Integer.parseInt(prefs.getString(getResources().getString(R.string.rounding_key), "0"));
+        if (remember) {
+            billAmountString = savedValues.getString("billAmountString","");
+            billAmountEditText.setText(billAmountString);
+            tipPercent = savedValues.getFloat("tipPercent", 0.15f);
+            split = savedValues.getInt("split", 1);
+            if (split > 1) {
+                eachPays.setVisibility(View.VISIBLE);
+            }
+            splitSpinner.setText(s[split - 1], false);
+        } else {
+            tipPercent = .15f;
+        }
+
+
+
         int tipProgress = (int) (tipPercent * 100);
         tipSeekBar.setProgress(tipProgress);
-        rounding = savedValues.getInt("rounding", ROUND_NONE);
-        if (rounding == ROUND_NONE) {
+        //rounding = savedValues.getInt("rounding", ROUND_NONE);
+      /*  if (rounding == ROUND_NONE) {
             roundingRadioGroup.check(R.id.noRoundingRadioButton);
         } else if (rounding == ROUND_TIP) {
             roundingRadioGroup.check(R.id.roundTipRadioButton);
         } else if (rounding == ROUND_TOTAL) {
             roundingRadioGroup.check(R.id.roundTotalRadioButton);
-        }
-        split = savedValues.getInt("split", 1);
-        if (split > 1) {
-            eachPays.setVisibility(View.VISIBLE);
-        }
-        splitSpinner.setText(s[split - 1], false);
+        }*/
+
         calculateAndDisplay();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
+        switch(item.getItemId()) {
+            case R.id.menu_about:
+                //Toast.makeText(this, R.string.about, Toast.LENGTH_LONG).show();
+                //Snackbar.make(totalEditText, R.string.about, Snackbar.LENGTH_LONG).show();
+                Log.i("TipCalculator", "Clicked about button");
+                //Intent about = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(new Intent(getApplicationContext(), AboutActivity.class));
+                break;
+            case R.id.menu_settings:
+                //Toast.makeText(this, R.string.about, Toast.LENGTH_LONG).show();
+                //Snackbar.make(totalEditText, R.string.about, Snackbar.LENGTH_LONG).show();
+                Log.i("TipCalculator", "Clicked settings button");
+                //Intent about = new Intent(getApplicationContext(), AboutActivity.class);
+                startActivity(new Intent(getApplicationContext(), SettingsActivity.class));
+        }
+        return true;
     }
 
     public void calculateAndDisplay() {
@@ -209,9 +257,9 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
                 tipPercent = .15f;
                 percentEditText.setText(R.string.default_percent);
                 tipSeekBar.setProgress(15);
-                roundingRadioGroup.clearCheck();
-                rounding = ROUND_NONE;
-                roundingRadioGroup.check(R.id.noRoundingRadioButton);
+              //  roundingRadioGroup.clearCheck();
+            //    rounding = ROUND_NONE;
+              //  roundingRadioGroup.check(R.id.noRoundingRadioButton);
                 tipEditText.setText(R.string.default_number);
                 splitSpinner.setText(s[0], false);
                 split = 1;
@@ -220,7 +268,7 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
                 totalEditText.setText(R.string.default_number);
         }
     }
-
+/*
     @Override
     public void onCheckedChanged(RadioGroup group, int checkedId) {
         switch (checkedId) {
@@ -230,5 +278,5 @@ public class TipCalculatorActivity extends AppCompatActivity implements RadioGro
         }
 
         calculateAndDisplay();
-    }
+    }*/
 }
